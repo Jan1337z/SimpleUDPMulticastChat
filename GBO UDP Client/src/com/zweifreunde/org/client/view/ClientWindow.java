@@ -1,5 +1,7 @@
 package com.zweifreunde.org.client.view;
 
+import com.zweifreunde.org.client.localization.ILocalization;
+
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -11,11 +13,10 @@ public class ClientWindow extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1337L;
-	private static final String TITLE = "1337z Chat Client";
 
-	public ClientWindow(ClientInputView civ, ClientMessageView cmv) {
-		// Setting the Layout
-		this.setTitle(TITLE);
+	public ClientWindow(ClientInputView civ, ClientMessageView cmv, ILocalization localization) {
+		String title = localization.getString("chat_window_title");
+		this.setTitle(title);
 		this.setLayout(new BorderLayout());
 		this.add(cmv, BorderLayout.CENTER);
 		this.add(civ, BorderLayout.SOUTH);

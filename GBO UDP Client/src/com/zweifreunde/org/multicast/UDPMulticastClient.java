@@ -8,6 +8,8 @@ import java.net.MulticastSocket;
 import javax.swing.SwingUtilities;
 
 import com.zweifreunde.org.client.controller.ISendMessageListener;
+import com.zweifreunde.org.client.debug.IDebug;
+import com.zweifreunde.org.client.localization.ILocalization;
 import com.zweifreunde.org.client.model.ClientModel;
 
 public class UDPMulticastClient implements ISendMessageListener {
@@ -16,15 +18,21 @@ public class UDPMulticastClient implements ISendMessageListener {
 	final private InetAddress addr;
     final private int port;
     final private ClientModel model;
+    private final IDebug debugger;
+    private final ILocalization localization;
 
-	public UDPMulticastClient(ClientModel model, int port) throws IOException {
+    public UDPMulticastClient(ClientModel model, int port, ILocalization localization, IDebug debugger) throws IOException {
 		this.socket = new MulticastSocket(port);
 		this.addr = InetAddress.getByName("238.254.254.254");
 		this.port = port;
 		this.socket.joinGroup(this.addr);
 		this.model = model;
 		this.model.addSendMessageListener(this);
+        this.debugger = debugger;
+        this.localization = localization;
 	}
+
+
 
 	@Override
 	public void sendMessage(String msg) {
@@ -48,7 +56,7 @@ public class UDPMulticastClient implements ISendMessageListener {
 					try {
 						socket.receive(read);
 					} catch (IOException e) {
-						System.out.println("Fehler beim Emfangen.");
+						UDPMulticastClient.this.debugger.error(UDPMulticastClient.this.localization.getString("multicast_client_receive_fail"));
 					}
 					String msg = new String(read.getData());
 					// model.newMessage(msg);

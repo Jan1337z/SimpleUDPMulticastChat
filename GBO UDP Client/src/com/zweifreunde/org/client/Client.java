@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.rmi.NotBoundException;
 
 import com.zweifreunde.org.client.controller.ClientInputController;
+import com.zweifreunde.org.client.debug.ConsoleDebugImpl;
+import com.zweifreunde.org.client.debug.IDebug;
+import com.zweifreunde.org.client.localization.ILocalization;
+import com.zweifreunde.org.client.localization.ResourceBundleLocalization;
 import com.zweifreunde.org.client.model.ClientModel;
 import com.zweifreunde.org.client.view.ClientInputView;
 import com.zweifreunde.org.client.view.ClientMessageView;
@@ -16,12 +20,15 @@ public class Client {
 
 		ClientModel clientModel = new ClientModel();
 
+        ILocalization localization = new ResourceBundleLocalization();
+        IDebug debug = new ConsoleDebugImpl();
+
 		ClientInputView civ = new ClientInputView();
 		ClientMessageView cmv = new ClientMessageView();
-		ClientWindow window = new ClientWindow(civ, cmv);
+		ClientWindow window = new ClientWindow(civ, cmv, localization);
 
 		ClientInputController cIController = new ClientInputController(
-				clientModel, civ, window);
+				clientModel, civ, window, localization);
 		// Registriere ClientMessagesView f��r neue Nachrichten
 		clientModel.addNewMessageListener(cmv);
 
@@ -34,10 +41,10 @@ public class Client {
 		// receiver.startListening();
 
 		// UDP Multicast
-		UDPMulticastClient client = new UDPMulticastClient(clientModel, 1337);
+		UDPMulticastClient client = new UDPMulticastClient(clientModel, 1337, localization, debug);
 		client.startListening();
 
-        
+
 
 	}
 }
