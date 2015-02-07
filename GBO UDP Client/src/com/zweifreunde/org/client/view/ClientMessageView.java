@@ -11,10 +11,10 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
-import com.zweifreunde.org.client.controller.NewMessagesListener;
+import com.zweifreunde.org.client.controller.INewMessagesListener;
 
 public class ClientMessageView extends JScrollPane implements
-		NewMessagesListener {
+        INewMessagesListener {
 	/**
 	 * 
 	 */

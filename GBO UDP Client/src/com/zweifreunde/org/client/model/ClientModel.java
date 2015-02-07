@@ -2,24 +2,24 @@ package com.zweifreunde.org.client.model;
 
 import java.util.ArrayList;
 
-import com.zweifreunde.org.client.controller.NewMessagesListener;
-import com.zweifreunde.org.client.controller.SendMessageListener;
+import com.zweifreunde.org.client.controller.INewMessagesListener;
+import com.zweifreunde.org.client.controller.ISendMessageListener;
 
 public class ClientModel {
-	private ArrayList<NewMessagesListener> newMsgListeners;
-	private ArrayList<SendMessageListener> sendMsgListener;
+	private ArrayList<INewMessagesListener> newMsgListeners;
+	private ArrayList<ISendMessageListener> sendMsgListener;
 
 	private String ID;
 
 	public ClientModel() {
-		this.newMsgListeners = new ArrayList<NewMessagesListener>();
-		this.sendMsgListener = new ArrayList<SendMessageListener>();
+		this.newMsgListeners = new ArrayList<INewMessagesListener>();
+		this.sendMsgListener = new ArrayList<ISendMessageListener>();
 
 		this.ID = this.toString().substring(this.toString().indexOf("@") + 1);
 
 	}
 
-	public void addNewMessageListener(NewMessagesListener listener) {
+	public void addNewMessageListener(INewMessagesListener listener) {
 		synchronized (this.newMsgListeners) {
 			this.newMsgListeners.add(listener);
 		}
@@ -27,7 +27,7 @@ public class ClientModel {
 
 	private void notifyListeners(String msg) {
 		synchronized (this.newMsgListeners) {
-			for (NewMessagesListener l : this.newMsgListeners) {
+			for (INewMessagesListener l : this.newMsgListeners) {
 				l.newMessage(msg);
 			}
 		}
@@ -36,7 +36,7 @@ public class ClientModel {
 	public void sendMessage(String newMsg) {
 		if (!"".equals(newMsg)) {
 			synchronized (this.sendMsgListener) {
-				for (SendMessageListener l : this.sendMsgListener) {
+				for (ISendMessageListener l : this.sendMsgListener) {
 					l.sendMessage(this.getName() + ": " + newMsg);
 				}
 			}
@@ -47,13 +47,13 @@ public class ClientModel {
 		notifyListeners(msg);
 	}
 
-	public void addSendMessageListener(SendMessageListener listener) {
+	public void addSendMessageListener(ISendMessageListener listener) {
 		synchronized (this.sendMsgListener) {
 			this.sendMsgListener.add(listener);
 		}
 	}
 
-	public void removeSendMessageListener(SendMessageListener listener) {
+	public void removeSendMessageListener(ISendMessageListener listener) {
 		synchronized (this.sendMsgListener) {
 			this.sendMsgListener.remove(listener);
 		}

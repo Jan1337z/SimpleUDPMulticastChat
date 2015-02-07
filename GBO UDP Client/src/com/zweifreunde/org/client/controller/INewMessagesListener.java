@@ -1,6 +1,6 @@
 package com.zweifreunde.org.client.controller;
 
 
-public interface NewMessagesListener {
+public interface INewMessagesListener {
 	public void newMessage(String msg);
 }

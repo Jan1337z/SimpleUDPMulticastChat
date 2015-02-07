@@ -7,10 +7,10 @@ import java.net.MulticastSocket;
 
 import javax.swing.SwingUtilities;
 
-import com.zweifreunde.org.client.controller.SendMessageListener;
+import com.zweifreunde.org.client.controller.ISendMessageListener;
 import com.zweifreunde.org.client.model.ClientModel;
 
-public class UDPMulticastClient implements SendMessageListener {
+public class UDPMulticastClient implements ISendMessageListener {
 
 	private MulticastSocket socket;
 	private InetAddress addr;
