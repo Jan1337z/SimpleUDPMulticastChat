@@ -40,8 +40,12 @@ public class ClientMessageView extends JScrollPane implements
 	public void addMessage(String msg) {
 		try {
 			this.kit.insertHTML(doc, doc.getLength(), msg, 0, 0, null);
-		} catch (BadLocationException | IOException e) {
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+
 	}
 
 	@Override
