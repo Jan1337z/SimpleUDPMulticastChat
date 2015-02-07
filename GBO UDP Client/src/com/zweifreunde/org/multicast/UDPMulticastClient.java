@@ -12,13 +12,13 @@ import com.zweifreunde.org.client.model.ClientModel;
 
 public class UDPMulticastClient implements ISendMessageListener {
 
-	private MulticastSocket socket;
-	private InetAddress addr;
-	private int port;
-	private ClientModel model;
+    final private MulticastSocket socket;
+	final private InetAddress addr;
+    final private int port;
+    final private ClientModel model;
 
 	public UDPMulticastClient(ClientModel model, int port) throws IOException {
-		this.socket = new MulticastSocket(1337);
+		this.socket = new MulticastSocket(port);
 		this.addr = InetAddress.getByName("238.254.254.254");
 		this.port = port;
 		this.socket.joinGroup(this.addr);
@@ -33,7 +33,6 @@ public class UDPMulticastClient implements ISendMessageListener {
 		try {
 			this.socket.send(packet);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

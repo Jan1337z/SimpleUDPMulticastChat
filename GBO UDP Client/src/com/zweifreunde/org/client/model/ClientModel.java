@@ -6,8 +6,8 @@ import com.zweifreunde.org.client.controller.INewMessagesListener;
 import com.zweifreunde.org.client.controller.ISendMessageListener;
 
 public class ClientModel {
-	private ArrayList<INewMessagesListener> newMsgListeners;
-	private ArrayList<ISendMessageListener> sendMsgListener;
+	private final ArrayList<INewMessagesListener> newMsgListeners;
+	private final ArrayList<ISendMessageListener> sendMsgListener;
 
 	private String ID;
 

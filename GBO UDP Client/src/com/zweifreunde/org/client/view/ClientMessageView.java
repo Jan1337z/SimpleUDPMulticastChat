@@ -19,22 +19,21 @@ public class ClientMessageView extends JScrollPane implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1337L;
-	private JEditorPane textArea;
-	private HTMLEditorKit kit;
+    private HTMLEditorKit kit;
 	private HTMLDocument doc;
 
 	public ClientMessageView() {
-		this.textArea = new JEditorPane("text/html", null);
+        JEditorPane textArea = new JEditorPane("text/html", null);
 		this.kit = new HTMLEditorKit();
 		this.doc = new HTMLDocument();
-		this.textArea.setEditorKit(kit);
-		this.textArea.setDocument(doc);
-		this.textArea.setEditable(false);
-		this.textArea.setMargin(new Insets(10, 10, 10, 10));
+		textArea.setEditorKit(kit);
+		textArea.setDocument(doc);
+		textArea.setEditable(false);
+		textArea.setMargin(new Insets(10, 10, 10, 10));
 
 		this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-		this.setViewportView(this.textArea);
+		this.setViewportView(textArea);
 	}
 
 	public void addMessage(String msg) {
@@ -62,6 +61,6 @@ public class ClientMessageView extends JScrollPane implements
 	}
 
 	public String getHTMLTime() {
-		return "<a style='color: #999999'>&lt;" + getTime() + "&gt;</a>";
+		return String.format("<a style='color: #999999'>&lt;%s&gt;</a>", this.getTime() );
 	}
 }
